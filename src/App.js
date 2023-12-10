@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import StepsContainer from "./components/StepsContainer";
+import Steps from "./components/Steps";
+import MainContainer from "./components/MainContainer";
+import StepInputs from "./components/StepInputs";
+import { FormProvider } from "./contexts/FormContext";
+import Button from "./components/Button";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className="box-container">
+        <FormProvider>
+          <StepsContainer>
+            <Steps />
+          </StepsContainer>
+          <MainContainer>
+            <StepInputs />
+            <div className="buttons">
+              <Button callback="go/back" type="btn-previous">
+                Go back
+              </Button>
+              <Button callback="go/next" type="btn-next">
+                Next
+              </Button>
+            </div>
+          </MainContainer>
+        </FormProvider>
+      </div>
+    </main>
   );
 }
 
