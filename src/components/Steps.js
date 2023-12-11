@@ -1,11 +1,5 @@
 import { useForm } from "../contexts/FormContext";
-
-const steps = [
-  { step: 1, text: "Your info" },
-  { step: 2, text: "Select Plan" },
-  { step: 3, text: "Add-ons" },
-  { step: 4, text: "Summary" },
-];
+import { steps } from "../formData.js/data";
 
 // className = "active-step";
 function Steps() {

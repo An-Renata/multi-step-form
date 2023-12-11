@@ -49,7 +49,6 @@ function StepOneLayout() {
             value={phoneNumber}
           ></input>
         </div>
-        {/* <Button type="btn-next">Next step</Button> */}
       </div>
     </>
   );

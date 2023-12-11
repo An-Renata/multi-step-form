@@ -1,5 +1,10 @@
+import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
+import { addOnsData } from "../formData.js/data";
+
 function StepThreeLayout() {
+  const { dispatch, addOns, isChecked } = useForm();
+
   return (
     <>
       <StepInfoHeader
@@ -8,37 +13,41 @@ function StepThreeLayout() {
       />
       <div className="inputs-box">
         <div className="add-ons">
-          <div className="add-on">
-            <input type="checkbox"></input>
-            <div>
-              <h4>Online service</h4>
-              <p>Access to multiplayer games</p>
+          {addOnsData.map((data) => (
+            <div
+              key={data.title}
+              // add selected-add-ons class if data is in the array to highligh the selection
+              className={`add-on ${
+                addOns.map((addOn) => addOn?.title).includes(data.title)
+                  ? "selected-add-ons"
+                  : ""
+              }`}
+              // Add the selected add-ons to the addOns array and filter them out if user clicks on the item again
+              onClick={() =>
+                dispatch({
+                  type: "select/add/ons",
+                  payload: { title: data.title, price: data.price },
+                })
+              }
+            >
+              <input
+                type="checkbox"
+                // activate checked attribute if data is in the addOns array
+                checked={
+                  addOns.map((addOn) => addOn?.title).includes(data.title)
+                    ? true
+                    : false
+                }
+                onChange={() => isChecked}
+              ></input>
+              <div>
+                <h4>{data.title}</h4>
+                <p>{data.text}</p>
+              </div>
+              <span>+${data.price}/mo</span>
             </div>
-            <span>+$1/mo</span>
-          </div>
-
-          <div className="add-on">
-            <input type="checkbox"></input>
-            <div>
-              <h4>Larger storage</h4>
-              <p>Extra 1TB of cloud save</p>
-            </div>
-            <span>+$2/mo</span>
-          </div>
-
-          <div className="add-on">
-            <input type="checkbox"></input>
-            <div>
-              <h4>Customizable Profile</h4>
-              <p>Custom theme on your profile</p>
-            </div>
-            <span>+$1/mo</span>
-          </div>
+          ))}
         </div>
-        {/* <div className="buttons">
-          <Button type="btn-previous">Go back</Button>
-          <Button type="btn-next">Next step</Button>
-        </div> */}
       </div>
     </>
   );

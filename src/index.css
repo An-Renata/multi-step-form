@@ -54,7 +54,7 @@ img {
 /*! .............. */
 /* Steps container box */
 .steps-container {
-  background-image: url("../images/bg-sidebar-desktop.svg");
+  background-image: url("./images/bg-sidebar-desktop.svg");
   background-repeat: no-repeat;
   /* background images width */
   width: 274px;
@@ -286,4 +286,14 @@ img {
   color: hsl(213, 98%, 35%);
   text-decoration: underline;
   font-size: 12px;
+}
+
+/* SELECTED items*/
+
+.selected-plan {
+  border: 1px solid #02295a;
+}
+
+.selected-add-ons {
+  background-color: hsl(217, 100%, 97%);
 }

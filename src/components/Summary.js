@@ -1,6 +1,12 @@
+import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
-import Button from "./Button.js";
+
 function Summary() {
+  const { plan, subscriptionType, addOns } = useForm();
+
+  const total = plan.price + addOns.reduce((acc, curr) => acc + curr.price, 0);
+
+  console.log(plan);
   return (
     <>
       <StepInfoHeader
@@ -10,34 +16,33 @@ function Summary() {
 
       <div className="inputs-box">
         <div className="summary-info">
-          <div className="highlited">
-            <div className="summary">
-              <div>
-                <h4>Arcade (Monthly)</h4>
-                <button className="change-plan">Change</button>
-              </div>
-              <span>+$9/mo</span>
+          {/* <div className="highlited"> */}
+          <div className="summary">
+            <div>
+              <h4>
+                {plan.name} ({subscriptionType})
+              </h4>
+              <button className="change-plan">Change</button>
             </div>
-            {/* Should be displayed depending on what ad-ons user selected */}
-            <div className="summary ">
-              <p>Online service</p>
-              <span>+$1/mo</span>
-            </div>
-
-            <div className="summary">
-              <p>Larger Storage</p>
-              <span>+$1/mo</span>
-            </div>
+            <span>+${plan.price}/mo</span>
           </div>
+          {/* Should be displayed depending on what ad-ons user selected */}
+          {addOns.map((adds) => (
+            <div className="summary" key={adds.title}>
+              <p>{adds.title}</p>
+              <span>+${adds.price}/mo</span>
+            </div>
+          ))}
+
           <div className="summary total">
-            <p>Total (per month)</p>
-            <span>+$12/mo</span>
+            <p>
+              Total (per {subscriptionType === "monthly" ? "month" : "year"})
+            </p>
+            <span>
+              +${total}/{subscriptionType === "monthly" ? "mo" : "yr"}
+            </span>
           </div>
         </div>
-        {/* <div className="buttons">
-          <Button type="btn-previous">Go back</Button>
-          <Button type="btn-next">Confirm</Button>
-        </div> */}
       </div>
     </>
   );

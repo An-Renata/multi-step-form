@@ -8,8 +8,10 @@ const initialState = {
   email: "",
   phoneNumber: "",
   switchBool: false,
-  plan: "",
+  plan: {},
   subscriptionType: "monthly",
+  addOns: [],
+  isChecked: false,
 };
 
 function reducer(state, action) {
@@ -30,8 +32,32 @@ function reducer(state, action) {
       return {
         ...state,
         switchBool: !state.switchBool,
-        subscriptionType:
-          state.subscriptionType === false ? "monthly" : "yearly",
+        subscriptionType: !state.switchBool ? "yearly" : "monthly",
+      };
+    case "select/add/ons":
+      //   returns true value if title is already on the addOns array, otherwise false
+      const titleExists = state.addOns
+        .map((addOn) => addOn.title)
+        .includes(action.payload.title);
+
+      // If user clicks the same add-on to disable the selection, state.addOns should filter that title out of the array
+      if (titleExists) {
+        return {
+          ...state,
+          isChecked: false,
+          addOns: state.addOns.filter(
+            (title) => title.title !== action.payload.title
+          ),
+        };
+      }
+      //   If user pick doesn't match the same title, add it to the array
+      return {
+        ...state,
+        addOns: [
+          ...state.addOns,
+          { title: action.payload.title, price: action.payload.price },
+        ],
+        isChecked: true,
       };
     default:
       throw new Error("Unknown action");
@@ -49,6 +75,8 @@ function FormProvider({ children }) {
       switchBool,
       plan,
       subscriptionType,
+      addOns,
+      isChecked,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -64,6 +92,9 @@ function FormProvider({ children }) {
         switchBool,
         plan,
         subscriptionType,
+        addOns,
+        isChecked,
+
         dispatch,
       }}
     >
