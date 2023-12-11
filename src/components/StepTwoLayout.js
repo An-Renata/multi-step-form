@@ -1,11 +1,23 @@
 import StepInfoHeader from "./StepInfoHeader";
 import Switch from "react-switch";
 import { planCards } from "../formData.js/data.js";
+import Button from "./Button.js";
 
 import { useForm } from "../contexts/FormContext.js";
 
 function StepTwoLayout() {
   const { switchBool, plan: selectedPlan, dispatch } = useForm();
+
+  // Handle submit, user must choose a plan in order to go to the next step
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (selectedPlan.name) {
+      dispatch({ type: "go/next" });
+    } else {
+      alert("You must choose a plan");
+    }
+  }
 
   return (
     <>
@@ -13,8 +25,8 @@ function StepTwoLayout() {
         header="Select your plan"
         paragraph="You have the option of monthly or yearly billing."
       />
-      <div className="inputs-box">
-        <div>
+      <form onSubmit={handleSubmit}>
+        <div className="inputs-box">
           <div className="plan-cards">
             {planCards.map((plan) => (
               <div
@@ -55,7 +67,15 @@ function StepTwoLayout() {
             <h4>Yearly</h4>
           </div>
         </div>
-      </div>
+        <div className="buttons">
+          <Button callback="go/back" type="btn-previous">
+            Go back
+          </Button>
+          <Button sub="submit" type="btn-next">
+            Next
+          </Button>
+        </div>
+      </form>
     </>
   );
 }

@@ -1,9 +1,18 @@
 import StepInfoHeader from "./StepInfoHeader";
 import { useForm } from "../contexts/FormContext";
-
+import InputsBox from "./InputsBox";
+import Button from "./Button.js";
 function StepOneLayout() {
   // giving input values, to persist them throughout steps, using disptach function to save the state value
   const { name, email, phoneNumber, dispatch } = useForm();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Check if all input fields are filled
+    if (name === "" || email === "" || phoneNumber === "") return;
+
+    dispatch({ type: "go/next" });
+  }
 
   return (
     <>
@@ -12,10 +21,11 @@ function StepOneLayout() {
         header="Personal info"
         paragraph="Please provide your name, email address, and phone number"
       />
-      <div className="inputs-box">
-        <div className="inputs">
+      <InputsBox>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">Name</label>
           <input
+            required
             type="text"
             placeholder="e.g. Stephen King"
             id="firstName"
@@ -28,6 +38,7 @@ function StepOneLayout() {
 
           <label htmlFor="email">Email Address</label>
           <input
+            required
             type="text"
             placeholder="e.g. Stephen King@lorem.com"
             id="email"
@@ -39,6 +50,7 @@ function StepOneLayout() {
           ></input>
           <label htmlFor="phoneNumber">Phone Number</label>
           <input
+            required
             type="text"
             placeholder="e.g. +1 234 567 890"
             id="phoneNumber"
@@ -48,8 +60,13 @@ function StepOneLayout() {
             }
             value={phoneNumber}
           ></input>
-        </div>
-      </div>
+          <div>
+            <Button sub="submit" type="btn-next">
+              Next
+            </Button>
+          </div>
+        </form>
+      </InputsBox>
     </>
   );
 }

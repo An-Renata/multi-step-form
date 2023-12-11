@@ -1,6 +1,6 @@
 import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
-
+import Button from "./Button.js";
 function Summary() {
   const { plan, subscriptionType, addOns } = useForm();
 
@@ -43,6 +43,14 @@ function Summary() {
             </span>
           </div>
         </div>
+      </div>
+      <div className="buttons">
+        <Button callback="go/back" type="btn-previous">
+          Go back
+        </Button>
+        <Button callback="go/next" type="btn-next">
+          Confirm
+        </Button>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
 import { addOnsData } from "../formData.js/data";
+import Button from "./Button.js";
 
 function StepThreeLayout() {
   const { dispatch, addOns, isChecked } = useForm();
@@ -48,6 +49,15 @@ function StepThreeLayout() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="buttons">
+        <Button callback="go/back" type="btn-previous">
+          Go back
+        </Button>
+        <Button callback="go/next" type="btn-next">
+          Next
+        </Button>
       </div>
     </>
   );

@@ -43,22 +43,27 @@ img {
 /*! ............. */
 /* Box container */
 .box-container {
+  max-width: 700px;
+  margin: 0 auto;
   display: flex;
   height: 100vh;
   padding: 10px;
   justify-content: center;
   align-items: stretch;
-  gap: 20px;
+  gap: 15px;
 }
 
 /*! .............. */
 /* Steps container box */
 .steps-container {
+  position: static;
   background-image: url("./images/bg-sidebar-desktop.svg");
   background-repeat: no-repeat;
   /* background images width */
   width: 274px;
+  min-width: 200px;
   padding: 30px;
+  border-radius: 5px;
 }
 
 .step {
@@ -96,8 +101,10 @@ img {
 /* Main container  */
 .main-container {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  padding: 30px;
+  padding: 20px;
+  height: 100%;
 }
 .main-container h1 {
   font-size: 1.5rem;
@@ -137,21 +144,6 @@ img {
 }
 
 /*! ...................  */
-
-/* Button next */
-.btn-next {
-  /* place button in the right bottom corner */
-  justify-content: flex-end;
-  align-self: flex-end;
-
-  padding: 10px 17px;
-  font-size: 0.625rem;
-  border: none;
-  border-radius: 5px;
-  background-color: hsl(213, 96%, 18%);
-  color: var(--font-color);
-  cursor: pointer;
-}
 
 /*! .................  */
 /* Step2 layout*/
@@ -198,6 +190,7 @@ img {
 .buttons {
   display: flex;
   justify-content: space-between;
+  margin-top: 200px;
 }
 
 .btn-previous {
@@ -205,6 +198,22 @@ img {
   background-color: #fff;
   color: #02295a;
   font-weight: 700;
+  cursor: pointer;
+}
+
+/* Button next */
+.btn-next {
+  /* place button in the right bottom corner */
+  justify-content: flex-end;
+  align-self: flex-end;
+
+  padding: 10px 17px;
+  font-size: 0.625rem;
+  border: none;
+  border-radius: 5px;
+  width: 80px;
+  background-color: hsl(213, 96%, 18%);
+  color: var(--font-color);
   cursor: pointer;
 }
 

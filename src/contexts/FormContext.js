@@ -67,6 +67,7 @@ function reducer(state, action) {
 function FormProvider({ children }) {
   const [
     {
+      isValid,
       status,
       index,
       name,
@@ -84,6 +85,7 @@ function FormProvider({ children }) {
   return (
     <FormContext.Provider
       value={{
+        isValid,
         status,
         index,
         name,
