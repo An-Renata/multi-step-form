@@ -21,14 +21,15 @@ function StepOneLayout() {
         header="Personal info"
         paragraph="Please provide your name, email address, and phone number"
       />
+
       <InputsBox>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="firstName">Name</label>
+          <label htmlFor="name">Name</label>
           <input
             required
             type="text"
             placeholder="e.g. Stephen King"
-            id="firstName"
+            id="name"
             // dispatch function to save the name value
             onChange={(e) =>
               dispatch({ type: "name", payload: e.target.value })
@@ -60,7 +61,7 @@ function StepOneLayout() {
             }
             value={phoneNumber}
           ></input>
-          <div>
+          <div className="buttons">
             <Button sub="submit" type="btn-next">
               Next
             </Button>

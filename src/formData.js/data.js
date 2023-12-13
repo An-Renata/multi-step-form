@@ -13,27 +13,41 @@ const planCards = [
   {
     icon: <Arcade />,
     name: "Arcade",
-    price: 9,
+    priceMonth: 9,
+    priceYear: 90,
   },
   {
     icon: <Advanced />,
     name: "Advanced",
-    price: 12,
+    priceMonth: 12,
+    priceYear: 120,
   },
   {
     icon: <Pro />,
     name: "Pro",
-    price: 15,
+    priceMonth: 15,
+    priceYear: 150,
   },
 ];
 
 const addOnsData = [
-  { title: "Online service", text: "Access to multiplayer games", price: 1 },
-  { title: "Larger storage", text: "Extra 1TB of cloud save", price: 2 },
+  {
+    title: "Online service",
+    text: "Access to multiplayer games",
+    priceMonth: 1,
+    priceYear: 10,
+  },
+  {
+    title: "Larger storage",
+    text: "Extra 1TB of cloud save",
+    priceMonth: 2,
+    priceYear: 20,
+  },
   {
     title: "Customizable Profile",
     text: "Custom theme on your profile",
-    price: 1,
+    priceMonth: 1,
+    priceYear: 20,
   },
 ];
 

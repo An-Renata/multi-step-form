@@ -7,7 +7,9 @@ const initialState = {
   name: "",
   email: "",
   phoneNumber: "",
+
   switchBool: false,
+  isChanged: false,
   plan: {},
   subscriptionType: "monthly",
   addOns: [],
@@ -29,8 +31,26 @@ function reducer(state, action) {
     case "plan":
       return { ...state, plan: action.payload };
     case "switch":
+      const newSubscriptionType = !state.switchBool ? "yearly" : "monthly";
+
       return {
         ...state,
+        switchBool: !state.switchBool,
+        subscriptionType: newSubscriptionType,
+        // plan: action.payload,
+      };
+    case "change/summary":
+      if (!state.isChanged) {
+        return {
+          ...state,
+          isChanged: true,
+          switchBool: !state.switchBool,
+          subscriptionType: !state.switchBool ? "yearly" : "monthly",
+        };
+      }
+      return {
+        ...state,
+        isChanged: false,
         switchBool: !state.switchBool,
         subscriptionType: !state.switchBool ? "yearly" : "monthly",
       };
@@ -82,6 +102,21 @@ function FormProvider({ children }) {
     dispatch,
   ] = useReducer(reducer, initialState);
 
+  const subType = subscriptionType === "monthly" ? "mo" : "yr";
+
+  // Function to bolden the selected plan
+  function fontColorSwitcher(switchType) {
+    if (subscriptionType === switchType) return "active";
+  }
+
+  // to avoid repetition, created a function to evaluate which plan is selected and based on that return the correct price
+  function planPrice(plan, subscriptionType) {
+    if (subscriptionType === "monthly") {
+      return plan?.priceMonth;
+    }
+    return plan?.priceYear;
+  }
+
   return (
     <FormContext.Provider
       value={{
@@ -96,7 +131,9 @@ function FormProvider({ children }) {
         subscriptionType,
         addOns,
         isChecked,
-
+        subType,
+        fontColorSwitcher,
+        planPrice,
         dispatch,
       }}
     >

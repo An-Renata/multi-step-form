@@ -2,9 +2,10 @@ import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
 import { addOnsData } from "../formData.js/data";
 import Button from "./Button.js";
+import InputsBox from "./InputsBox.js";
 
 function StepThreeLayout() {
-  const { dispatch, addOns, isChecked } = useForm();
+  const { dispatch, addOns, isChecked, subType, planPrice } = useForm();
 
   return (
     <>
@@ -12,7 +13,7 @@ function StepThreeLayout() {
         header="Pick add-ons"
         paragraph="Add-ons help enhance your gaming experience."
       />
-      <div className="inputs-box">
+      <InputsBox>
         <div className="add-ons">
           {addOnsData.map((data) => (
             <div
@@ -27,7 +28,7 @@ function StepThreeLayout() {
               onClick={() =>
                 dispatch({
                   type: "select/add/ons",
-                  payload: { title: data.title, price: data.price },
+                  payload: { title: data.title, price: planPrice(data) },
                 })
               }
             >
@@ -45,20 +46,21 @@ function StepThreeLayout() {
                 <h4>{data.title}</h4>
                 <p>{data.text}</p>
               </div>
-              <span>+${data.price}/mo</span>
+              <span>
+                +${planPrice(data)}/{subType}
+              </span>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="buttons">
-        <Button callback="go/back" type="btn-previous">
-          Go back
-        </Button>
-        <Button callback="go/next" type="btn-next">
-          Next
-        </Button>
-      </div>
+        <div className="buttons">
+          <Button callback="go/back" type="btn-previous">
+            Go back
+          </Button>
+          <Button callback="go/next" type="btn-next">
+            Next
+          </Button>
+        </div>
+      </InputsBox>
     </>
   );
 }

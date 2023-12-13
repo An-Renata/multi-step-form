@@ -1,19 +1,17 @@
 :root {
+  --font-size-075: 0.75rem;
+  --font-size-0625: 0.625rem;
+  --font-size-0825: 0.825rem;
   --font-color: hsl(0, 0%, 100%);
-  --light-gray-color: hsl(229, 24%, 87%);
-  /* - Marine blue: hsl(213, 96%, 18%)
-- Purplish blue: hsl(243, 100%, 62%)
-- Pastel blue: hsl(228, 100%, 84%)
-- Light blue: hsl(206, 94%, 87%)
-- Strawberry red: hsl(354, 84%, 57%)
-
-### Neutral
-
-- Cool gray: hsl(231, 11%, 63%)
-- Light gray: hsl(229, 24%, 87%)
-- Magnolia: hsl(217, 100%, 97%)
-- Alabaster: hsl(231, 100%, 99%)
-- White: hsl(0, 0%, 100%) */
+  --color-blurry-gray: hsl(231, 11%, 63%);
+  --color-marine-blue: hsl(213, 96%, 18%);
+  --color-pastel-blue: hsl(228, 100%, 84%);
+  --color-magnolia: hsl(217, 100%, 97%);
+  --color-strawberry-red: hsl(354, 84%, 57%);
+  --color-light-blue: hsl(206, 94%, 87%);
+  --color-purplish-blue: hsl(243, 100%, 62%);
+  --color-light-gray: hsl(229, 24%, 87%);
+  --color-alabaster: hsl(231, 100%, 99%);
 }
 
 /* CSS reset */
@@ -41,7 +39,7 @@ img {
 }
 
 /*! ............. */
-/* Box container */
+/* Box container of the entire form */
 .box-container {
   max-width: 700px;
   margin: 0 auto;
@@ -56,12 +54,11 @@ img {
 /*! .............. */
 /* Steps container box */
 .steps-container {
+  width: fit-content;
   position: static;
   background-image: url("./images/bg-sidebar-desktop.svg");
   background-repeat: no-repeat;
-  /* background images width */
   width: 274px;
-  min-width: 200px;
   padding: 30px;
   border-radius: 5px;
 }
@@ -73,7 +70,7 @@ img {
   gap: 10px;
   color: var(--font-color);
   text-transform: uppercase;
-  font-size: 0.625rem;
+  font-size: var(--font-size-0625);
 }
 
 /* selects p element its placed after the div */
@@ -93,26 +90,28 @@ img {
 
 /* add css, if span gets active class */
 .step span.active-step {
-  background-color: hsl(228, 100%, 84%);
-  color: hsl(213, 96%, 18%);
+  background-color: var(--color-pastel-blue);
+  color: var(--color-marine-blue);
 }
+
 /*!.......................  */
 
 /* Main container  */
 .main-container {
+  position: relative;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   padding: 20px;
-  height: 100%;
 }
+
 .main-container h1 {
   font-size: 1.5rem;
 }
 
 .main-container p {
-  font-size: 0.75rem;
-  color: hsl(231, 11%, 63%);
+  font-size: var(--font-size-075);
+  color: var(--color-blurry-gray);
   margin-bottom: 40px;
 }
 
@@ -120,32 +119,38 @@ img {
 .inputs-box {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: stretch;
   flex-grow: 1;
-  font-size: 0.875rem;
-  color: hsl(213, 96%, 18%);
+  position: relative;
+
+  font-size: var(--font-size-0825);
+  color: var(--color-marine-blue);
   font-weight: 500;
   gap: 5px;
 }
 
-/* inputs itself */
-.inputs {
+form {
+  position: relative;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  font-size: var(--font-size-0825);
+  color: var(--color-marine-blue);
+  font-weight: 500;
+  gap: 5px;
 }
 
-.inputs input {
+form input {
   padding: 18px;
   border-radius: 5px;
-  border: 1px solid var(--light-gray-color);
+  border: 1px solid var(--color-light-gray);
   width: inherit;
-  font-size: 0.75rem;
+  font-size: var(--font-size-075);
   margin-bottom: 20px;
 }
 
 /*! ...................  */
 
-/*! .................  */
 /* Step2 layout*/
 
 .plan-cards {
@@ -162,7 +167,7 @@ img {
   transition: all 0.3s;
 }
 .card h3 {
-  font-size: 0.625rem;
+  font-size: var(--font-size-0625);
   margin-top: 20px;
 }
 
@@ -172,43 +177,52 @@ img {
 
 /* ....................................... */
 
-/* switch button container */
+/* Switch button container step2 layout */
 
 .switch-container {
   display: flex;
   justify-content: center;
   gap: 20px;
   padding: 30px;
+  color: var(--color-marine-blue);
   color: #02295a;
 }
 .switch-container > h4 {
   font-size: 12px;
+  color: var(--color-blurry-gray);
+  transition: all 0.4s;
 }
+/* selected monthly or yearly plan will be darker color */
+.switch-container > h4.active {
+  color: var(--color-marine-blue);
+}
+/* !................. */
 
-/* ....................................... */
-/* Buttons "Go back" and "Next"  */
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 200px;
-}
+/* BUTTONS */
 
 .btn-previous {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
   border: none;
   background-color: #fff;
-  color: #02295a;
+  color: var(--color-blurry-gray);
   font-weight: 700;
   cursor: pointer;
 }
 
 /* Button next */
 .btn-next {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   /* place button in the right bottom corner */
   justify-content: flex-end;
   align-self: flex-end;
-
+  font-weight: 600;
+  letter-spacing: 0.5px;
   padding: 10px 17px;
-  font-size: 0.625rem;
+  font-size: var(--font-size-0625);
   border: none;
   border-radius: 5px;
   width: 80px;
@@ -216,6 +230,11 @@ img {
   color: var(--font-color);
   cursor: pointer;
 }
+
+.btn-next.confirm-btn {
+  background-color: var(--color-purplish-blue);
+}
+/* !............................... */
 
 /* Add-ons container */
 .add-ons {
@@ -225,6 +244,7 @@ img {
   width: 350px;
   gap: 10px;
 }
+
 .add-on {
   cursor: pointer;
   display: flex;
@@ -239,7 +259,7 @@ img {
 }
 
 .add-on:hover {
-  background-color: hsl(217, 100%, 97%);
+  background-color: var(var(--color-magnolia));
 }
 
 .add-on div p {
@@ -261,19 +281,26 @@ img {
 
 /* .......................... */
 
-/* Summary  */
+/* SUMMARY form container  */
 
+.highlited {
+  background-color: var(--color-magnolia);
+  padding: 10px;
+}
 .summary {
-  color: hsl(231, 11%, 63%);
+  color: var(--color-blurry-gray);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 5px;
   font-size: 12px;
   padding: 10px;
-  background-color: hsl(217, 100%, 97%);
+  /* background-color: var(--color-magnolia); */
 }
 
+.summary span {
+  color: var(--color-marine-blue);
+}
 .summary p {
   margin: 0;
 }
@@ -281,9 +308,15 @@ img {
   color: #02295a;
 }
 
-.highlited > div:first-of-type {
-  border-bottom: 1px solid hsl(231, 11%, 63%);
+.price-summary-plan {
+  font-size: 13px;
+  font-weight: 700;
 }
+
+.summary:first-child {
+  border-bottom: 1px solid var(--color-light-gray);
+}
+/* .....................  */
 
 .total {
   background-color: #fff;
@@ -297,6 +330,15 @@ img {
   font-size: 12px;
 }
 
+.summary.total {
+  padding: 20px;
+}
+.summary.total span {
+  color: var(--color-purplish-blue);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 /* SELECTED items*/
 
 .selected-plan {
@@ -304,5 +346,16 @@ img {
 }
 
 .selected-add-ons {
-  background-color: hsl(217, 100%, 97%);
+  background-color: var(--color-magnolia);
+}
+
+/* Confirmation text */
+.confirm {
+  margin: auto;
+  text-align: center;
+  padding: 50px;
+}
+.confirm h1,
+.confirm svg {
+  margin-bottom: 15px;
 }
