@@ -1,16 +1,18 @@
 import { createContext, useContext, useReducer } from "react";
+import { planCards, addOnsData } from "../formData/data.js";
 
 const FormContext = createContext();
 
 const initialState = {
-  index: 0,
+  index: 1,
   name: "",
   email: "",
   phoneNumber: "",
-
+  plans: planCards,
+  addOnsData: addOnsData,
   switchBool: false,
   isChanged: false,
-  plan: {},
+  plan: { name: "", priceMonth: 0, priceYear: 0, currPrice: 0 },
   subscriptionType: "monthly",
   addOns: [],
   isChecked: false,
@@ -33,11 +35,19 @@ function reducer(state, action) {
     case "switch":
       const newSubscriptionType = !state.switchBool ? "yearly" : "monthly";
 
+      const updatePlanPrice = {
+        ...state.plan,
+        currPrice:
+          newSubscriptionType === "monthly"
+            ? state.plan.priceMonth
+            : state.plan.priceYear,
+      };
+
       return {
         ...state,
         switchBool: !state.switchBool,
         subscriptionType: newSubscriptionType,
-        // plan: action.payload,
+        plan: updatePlanPrice,
       };
     case "change/summary":
       if (!state.isChanged) {
@@ -98,6 +108,8 @@ function FormProvider({ children }) {
       subscriptionType,
       addOns,
       isChecked,
+      addOnsData,
+      plans,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -112,11 +124,12 @@ function FormProvider({ children }) {
   // to avoid repetition, created a function to evaluate which plan is selected and based on that return the correct price
   function planPrice(plan, subscriptionType) {
     if (subscriptionType === "monthly") {
-      return plan?.priceMonth;
+      return plan?.currPrice;
     }
     return plan?.priceYear;
   }
 
+  console.log(planCards);
   return (
     <FormContext.Provider
       value={{
@@ -134,6 +147,8 @@ function FormProvider({ children }) {
         subType,
         fontColorSwitcher,
         planPrice,
+        addOnsData,
+        plans,
         dispatch,
       }}
     >

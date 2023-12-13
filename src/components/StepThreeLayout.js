@@ -1,11 +1,11 @@
 import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
-import { addOnsData } from "../formData.js/data";
 import Button from "./Button.js";
 import InputsBox from "./InputsBox.js";
 
 function StepThreeLayout() {
-  const { dispatch, addOns, isChecked, subType, planPrice } = useForm();
+  const { addOnsData, dispatch, addOns, isChecked, subType, planPrice } =
+    useForm();
 
   return (
     <>

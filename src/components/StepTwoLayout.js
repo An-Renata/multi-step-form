@@ -2,7 +2,6 @@ import StepInfoHeader from "./StepInfoHeader";
 import Switch from "react-switch";
 import Button from "./Button.js";
 import InputsBox from "./InputsBox.js";
-import { planCards } from "../formData.js/data.js";
 
 import { useForm } from "../contexts/FormContext.js";
 
@@ -15,6 +14,7 @@ function StepTwoLayout() {
     fontColorSwitcher,
     planPrice,
     subscriptionType,
+    plans,
   } = useForm();
 
   console.log(selectedPlan);
@@ -39,7 +39,7 @@ function StepTwoLayout() {
         <InputsBox>
           {/* mapping through planCards object to display info in the UI */}
           <div className="plan-cards">
-            {planCards.map((plan) => (
+            {plans.map((plan) => (
               <div
                 key={plan.name}
                 // Add active border to selected plan
@@ -52,7 +52,10 @@ function StepTwoLayout() {
                     type: "plan",
                     payload: {
                       name: plan.name,
-                      price: planPrice(plan, subscriptionType),
+                      priceMonth: plan.priceMonth,
+                      priceYear: plan.priceYear,
+                      currPrice: planPrice(plan, subscriptionType),
+                      // currPrice: planPrice(plan, subscriptionType),
                     },
                   });
                 }}
@@ -73,10 +76,10 @@ function StepTwoLayout() {
               onChange={() => {
                 dispatch({
                   type: "switch",
-                  payload: {
-                    name: selectedPlan.name,
-                    price: planPrice(selectedPlan.price, subscriptionType),
-                  },
+                  // payload: {
+                  //   name: selectedPlan.name,
+                  //   price: planPrice(selectedPlan.price, subscriptionType),
+                  // },
                 });
               }}
               checkedIcon={false}

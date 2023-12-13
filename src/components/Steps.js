@@ -1,5 +1,5 @@
 import { useForm } from "../contexts/FormContext";
-import { steps } from "../formData.js/data";
+import { steps } from "../formData/data";
 
 // className = "active-step";
 function Steps() {
