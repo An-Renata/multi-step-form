@@ -13,16 +13,6 @@ function App() {
         <MainContainer>
           {/* main layouts of the steps */}
           <StepInputs />
-
-          {/* Buttons to navigate through steps */}
-          {/* <div className="buttons">
-            <Button callback="go/back" type="btn-previous">
-              Go back
-            </Button>
-            <Button callback="go/next" type="btn-next">
-              Next
-            </Button>
-          </div> */}
         </MainContainer>
       </div>
     </main>

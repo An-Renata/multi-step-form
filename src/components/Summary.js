@@ -2,6 +2,7 @@ import { useForm } from "../contexts/FormContext";
 import StepInfoHeader from "./StepInfoHeader";
 import Button from "./Button.js";
 import InputsBox from "./InputsBox.js";
+
 function Summary() {
   const { plan, subscriptionType, addOns, subType, dispatch, planPrice } =
     useForm();

@@ -4,7 +4,7 @@ import { planCards, addOnsData } from "../formData/data.js";
 const FormContext = createContext();
 
 const initialState = {
-  index: 1,
+  index: 0,
   name: "",
   email: "",
   phoneNumber: "",
@@ -70,22 +70,6 @@ function reducer(state, action) {
         plan: updatePlanPrice,
         addOnsData: updatedAddOnsPrice,
         addOns: updateSelectedAddOnsPrice,
-      };
-
-    case "change/summary":
-      if (!state.isChanged) {
-        return {
-          ...state,
-          isChanged: true,
-          switchBool: !state.switchBool,
-          subscriptionType: !state.switchBool ? "yearly" : "monthly",
-        };
-      }
-      return {
-        ...state,
-        isChanged: false,
-        switchBool: !state.switchBool,
-        subscriptionType: !state.switchBool ? "yearly" : "monthly",
       };
     case "select/add/ons":
       //   returns true value if title is already on the addOns array, otherwise false
