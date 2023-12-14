@@ -4,8 +4,15 @@ import Button from "./Button.js";
 import InputsBox from "./InputsBox.js";
 
 function StepThreeLayout() {
-  const { addOnsData, dispatch, addOns, isChecked, subType, planPrice } =
-    useForm();
+  const {
+    addOnsData,
+    dispatch,
+    addOns,
+    isChecked,
+    subType,
+    planPrice,
+    subscriptionType,
+  } = useForm();
 
   return (
     <>
@@ -28,7 +35,12 @@ function StepThreeLayout() {
               onClick={() =>
                 dispatch({
                   type: "select/add/ons",
-                  payload: { title: data.title, price: planPrice(data) },
+                  payload: {
+                    title: data.title,
+                    priceMonth: data.priceMonth,
+                    priceYear: data.priceYear,
+                    currPrice: planPrice(data, subscriptionType),
+                  },
                 })
               }
             >
@@ -47,7 +59,8 @@ function StepThreeLayout() {
                 <p>{data.text}</p>
               </div>
               <span>
-                +${planPrice(data)}/{subType}
+                {/* Display price depending on subscription type > monthly or yearly */}
+                +${planPrice(data, subscriptionType)}/{subType}
               </span>
             </div>
           ))}

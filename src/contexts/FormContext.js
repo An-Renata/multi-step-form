@@ -32,9 +32,12 @@ function reducer(state, action) {
       return { ...state, phoneNumber: action.payload };
     case "plan":
       return { ...state, plan: action.payload };
+    // Switch button which changes the state of subscription type from monthly to yearly.
+    // Based on the current subscription type, the plan and add-ons prices should be displayed accordingly to their pricelist
     case "switch":
       const newSubscriptionType = !state.switchBool ? "yearly" : "monthly";
 
+      // Update plan prices in the UI if the subscription type changes
       const updatePlanPrice = {
         ...state.plan,
         currPrice:
@@ -42,13 +45,33 @@ function reducer(state, action) {
             ? state.plan.priceMonth
             : state.plan.priceYear,
       };
+      // If subscription types changes, update the price in UI
+      const updatedAddOnsPrice = state.addOnsData.map((add) => {
+        return {
+          ...add,
+          currPrice:
+            newSubscriptionType === "monthly" ? add.priceMonth : add.priceYear,
+        };
+      });
+
+      // Update not only the UI and new selected add-ons but also the ones, that are already selected.
+      const updateSelectedAddOnsPrice = state.addOns?.map((add) => {
+        return {
+          ...add,
+          currPrice:
+            newSubscriptionType === "monthly" ? add.priceMonth : add.priceYear,
+        };
+      });
 
       return {
         ...state,
         switchBool: !state.switchBool,
         subscriptionType: newSubscriptionType,
         plan: updatePlanPrice,
+        addOnsData: updatedAddOnsPrice,
+        addOns: updateSelectedAddOnsPrice,
       };
+
     case "change/summary":
       if (!state.isChanged) {
         return {
@@ -85,7 +108,12 @@ function reducer(state, action) {
         ...state,
         addOns: [
           ...state.addOns,
-          { title: action.payload.title, price: action.payload.price },
+          {
+            title: action.payload.title,
+            priceMonth: action.payload.priceMonth,
+            priceYear: action.payload.priceYear,
+            currPrice: action.payload.currPrice,
+          },
         ],
         isChecked: true,
       };
@@ -129,7 +157,6 @@ function FormProvider({ children }) {
     return plan?.priceYear;
   }
 
-  console.log(planCards);
   return (
     <FormContext.Provider
       value={{

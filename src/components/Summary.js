@@ -6,10 +6,15 @@ function Summary() {
   const { plan, subscriptionType, addOns, subType, dispatch, planPrice } =
     useForm();
 
-  console.log(plan);
-  const total = plan.price + addOns.reduce((acc, curr) => acc + curr.price, 0);
+  // Calculate total price both from add-ons(if any) and the main plan
+  const total =
+    plan.currPrice + addOns.reduce((acc, curr) => acc + curr.currPrice, 0);
 
-  function handleChange() {}
+  // Function is for a change button.
+  // After a click user could change from "monthly" to "yearly" subscription without going back in the form steps. New Prices will be displayed right in the summary step
+  function handleChange() {
+    dispatch({ type: "switch" });
+  }
 
   return (
     <>
@@ -26,24 +31,23 @@ function Summary() {
                 <h4>
                   {plan.name} ({subscriptionType})
                 </h4>
-                <button
-                  className="change-plan"
-                  onClick={() => dispatch({ type: "change/summary" })}
-                >
+                <button className="change-plan" onClick={handleChange}>
                   Change
                 </button>
               </div>
               <span className="price-summary-plan">
-                +${planPrice(plan.price)}/mo
+                {/* Display price of the selected plan */}
+                +${planPrice(plan, subscriptionType)}/mo
               </span>
             </div>
             {/* Should be displayed depending on what ad-ons user selected */}
             {addOns.map((adds) => (
               <div className="summary" key={adds.title}>
                 <p>{adds.title}</p>
-                <span>+${adds.price}/mo</span>
+                <span>+${adds.currPrice}/mo</span>
               </div>
             ))}
+            {/* ...................................... */}
           </div>
           <div className="summary total">
             <p>
